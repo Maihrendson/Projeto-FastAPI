@@ -18,3 +18,9 @@ def criar_entrega(entrega: Entrega):
     conn.execute("INSERT INTO entregas VALUES (?, ?, ?, ?)", (entrega.id, entrega.cliente, entrega.destino, entrega.status))
     conn.commit()
     return {"mensagem": "Entrega criada com sucesso!"}
+
+def listar_entregas():
+    conn = sqlite3.connect("entregas.db")
+    cursor = conn.execute("SELECT * FROM entregas")
+    entregas = cursor.fetchall()
+    return {"entregas": entregas}
