@@ -19,6 +19,8 @@ def criar_entrega(entrega: Entrega):
     conn.commit()
     return {"mensagem": "Entrega criada com sucesso!"}
 
+@app.get("/entregas/")
+
 def listar_entregas():
     conn = sqlite3.connect("entregas.db")
     cursor = conn.execute("SELECT * FROM entregas")
