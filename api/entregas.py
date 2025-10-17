@@ -2,14 +2,14 @@ import sqlite3
 import os
 
 def entregas_db():
-    # Garante que estamos na pasta correta
+    # Garante que estamos na pasta correta.
     db_path = os.path.join(os.path.dirname(__file__), "entregas.db")
     
-    # Criar ou conectar ao banco
+    # Criar ou conectar ao banco.
     conn = sqlite3.connect(db_path)
     
     try:
-        # Criar a tabela
+        # Criar a tabela.
         conn.execute('''
         CREATE TABLE IF NOT EXISTS entregas (
             id INTEGER PRIMARY KEY,
