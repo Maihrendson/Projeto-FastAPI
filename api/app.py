@@ -12,8 +12,11 @@ status = st.sidebar.selectbox("Status", ["Pendente", "Em Trânsito", "Entregue"]
 
 if st.sidebar.button("Salvar Entrega"): #Cria um botão para salvar a entrega.
     data = {"id": id, "cliente": cliente, "destino": destino, "status": status}
-    requests.post("http://127.0.0.1:8000/entregas/", json=data)
-    st.sidebar.success("Entrega registrada!")
+    response = requests.post("http://127.0.0.1:8000/entregas/", json=data)
+    if response.status_code == 200: 
+        st.sidebar.success("Entrega registrada com sucesso!")
+    else:
+        st.sidebar.error("Erro ao registrar entrega.")
     
 st.header("Entregas Registradas") #Exibe as entregas registradas.
 response = requests.get("http://127.0.0.1:8000/entregas/")
