@@ -13,7 +13,7 @@ class Entrega(BaseModel): #Classe para definir o modelo de dados.
     
 @app.post("/entregas/") #Cria uma rota para criar uma nova entrega.
 
-def criar_entrega(entrega: Entrega): # Função de criar uma nova entrega.
+def criar_entrega(entrega: Entrega): #Função de criar uma nova entrega.
     conn = sqlite3.connect("entregas.db")
     conn.execute("INSERT INTO entregas VALUES (?, ?, ?, ?)", (entrega.id, entrega.cliente, entrega.destino, entrega.status))
     conn.commit()
