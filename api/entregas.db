@@ -1,0 +1,12 @@
+import sqlite3
+
+
+conn = sqlite3.connect("entregas.db")
+conn.execute('''CREATE TABLE IF NOT EXISTS entregas (
+    id INTEGER PRIMARY KEY,
+    cliente TEXT,
+    destino TEXT,
+    status TEXT
+)''')
+conn.commit()
+conn.close()
