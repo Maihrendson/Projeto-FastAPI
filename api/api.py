@@ -11,7 +11,7 @@ class Entrega(BaseModel): #Classe para definir o modelo de dados.
     destino: str
     status: str
     
-@app.post("/entregas/") #Cria uma rota para criar uma nova entrega.
+@app.post("/entregas/")
 
 def criar_entrega(entrega: Entrega): #Função de criar uma nova entrega.
     conn = sqlite3.connect("entregas.db")
@@ -19,10 +19,27 @@ def criar_entrega(entrega: Entrega): #Função de criar uma nova entrega.
     conn.commit()
     return {"mensagem": "Entrega criada com sucesso!"}
 
-@app.get("/entregas/") #Cria uma instância para listar todas as entregas.
+@app.get("/entregas/") 
 
-def listar_entregas(): #Cria uma função para listar todas as entregas.
+def listar_entregas(): # Rota para listar todas as entregas
     conn = sqlite3.connect("entregas.db")
     cursor = conn.execute("SELECT * FROM entregas")
     entregas = cursor.fetchall()
     return {"entregas": entregas}
+
+@app.put("/entregas/{id}")
+
+def atualizar_entregas(id: int, entrega: Entrega): # Rota para atualizar uma entrega
+    conn = sqlite3.connect("entregas.db")
+    conn.execute("UPDATE entregas SET cliente = ?, destino = ?, status = ? WHERE id = ?", (entrega.cliente, entrega.destino, entrega.status, id))
+    conn.commit()
+    return {"mensagem": "Entrega atualizada com sucesso!"}
+
+@app.delete("/entregas/{id}")
+
+def deletar_entrega(id: int): # Rota para deletar uma entrega
+    conn = sqlite3.connect("entregas.db")
+    conn.execute("DELETE FROM entregas WHERE id = ?", (id,))
+    conn.commit()
+    return {"mensagem": "Entrega deletada com sucesso!"}
+    
